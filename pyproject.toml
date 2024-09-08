@@ -1,0 +1,11 @@
+[project]
+name = "meta"
+version = "0.1.0"
+dependencies = ['subpackage-a', 'subpackage-b']
+
+[tool.uv.workspace]
+members = ['subpackage_*']
+
+[tool.uv.sources]
+subpackage-a = { workspace = true }
+subpackage-b = { workspace = true }
