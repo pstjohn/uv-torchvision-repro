@@ -29,3 +29,23 @@ $ docker build -t uv-test .
 0.195 Creating virtualenv at: .venv
 0.197 error: distribution torchvision==0.15.0 @ registry+https://download.pytorch.org/whl/cu124 can't be installed because it doesn't have a source distribution or wheel for the current platform
 ```
+
+
+As an alternative, this dockerfile
+
+```dockerfile
+FROM python:3.10
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+RUN <<EOT
+pip install \
+--extra-index-url https://download.pytorch.org/whl/cu124 \
+torch \
+torchvision
+EOT
+```
+
+installs these packages:
+* https://download.pytorch.org/whl/cu124/torch-2.4.1%2Bcu124-cp310-cp310-linux_x86_64.whl
+* https://download.pytorch.org/whl/cu124/torchvision-0.19.1%2Bcu124-cp310-cp310-linux_x86_64.whl
